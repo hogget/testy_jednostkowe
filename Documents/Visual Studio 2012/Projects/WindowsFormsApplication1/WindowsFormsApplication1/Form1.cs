@@ -16,9 +16,11 @@ namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
     {
+        BindingList<Task> listaTaskow;
         public Form1()
         {
             InitializeComponent();
+            listaTaskow = new BindingList<Task>();
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -76,22 +78,10 @@ namespace WindowsFormsApplication1
             String adres = Adres_strony.Text;
             String email = Email.Text;
             String klucz = Klucz.Text;
+            Task task = new Task(adres, klucz, email);
+            listaTaskow.Add(task);
 
-            var doc = new HtmlAgilityPack.HtmlDocument();
-            var pageHtml = GetPageHtml(adres);
-            doc.LoadHtml(pageHtml);
-            var nodes = doc.DocumentNode.Descendants("img");
-
-            foreach (var node in nodes)
-            {
-                var Value1 = node.GetAttributeValue("alt", "");
-                bool znalezionoObrazekZSzukanymKluczem = Value1.Substring(0, Value1.Length).Contains(klucz);
-
-                if (znalezionoObrazekZSzukanymKluczem)
-                    //sprobujmy 
-                    Klucz.Text = node.GetAttributeValue("src", "");
-                    //Send_email(email, node.GetAttributeValue("src", ""));
-            }
+            lista_zadan.DataSource = listaTaskow;
         }
 
         private void Adres_strony_TextChanged(object sender, EventArgs e)
@@ -119,6 +109,41 @@ namespace WindowsFormsApplication1
 
         }
 
+        private void listBox1_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
 
+        }
+
+        private void wykonajPojedynczegoTaska(Task taskDoWykonania)
+        {
+
+           var doc = new HtmlAgilityPack.HtmlDocument();
+           var pageHtml = GetPageHtml(taskDoWykonania.Adres_strony);
+           doc.LoadHtml(pageHtml);
+           var nodes = doc.DocumentNode.Descendants("img");
+
+           foreach (var node in nodes)
+             {
+                var Value1 = node.GetAttributeValue("alt", "");
+                bool znalezionoObrazekZSzukanymKluczem = Value1.Substring(0, Value1.Length).Contains(taskDoWykonania.Klucz);
+
+                if (znalezionoObrazekZSzukanymKluczem)
+                    Klucz.Text = node.GetAttributeValue("src", "");
+                   Send_email(taskDoWykonania.Email, node.GetAttributeValue("src", ""));
+             }
+        }
+
+        private void wykonajZadaniaZListy(object sender, EventArgs e)
+        {
+         foreach (var task in listaTaskow)
+         {
+             wykonajPojedynczegoTaska(task);
+         }
+        }
+
+        private void wyczyscListe(object sender, EventArgs e)
+        {
+            listaTaskow.Clear();
+        }
     }
 }

@@ -32,7 +32,6 @@
             this.start = new System.Windows.Forms.Button();
             this.Email = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.lista_zadan = new System.Windows.Forms.ListBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
@@ -40,6 +39,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.Adres_strony = new System.Windows.Forms.TextBox();
+            this.lista_zadan = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // Klucz
@@ -57,10 +57,10 @@
             this.start.Name = "start";
             this.start.Size = new System.Drawing.Size(75, 23);
             this.start.TabIndex = 2;
-            this.start.Text = "start";
+            this.start.Text = "Wykonaj!";
             this.start.UseVisualStyleBackColor = true;
             this.start.UseWaitCursor = true;
-            this.start.Click += new System.EventHandler(this.start_Click);
+            this.start.Click += new System.EventHandler(this.wykonajZadaniaZListy);
             // 
             // Email
             // 
@@ -82,20 +82,7 @@
             this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.button1.UseVisualStyleBackColor = true;
             this.button1.UseWaitCursor = true;
-            // 
-            // lista_zadan
-            // 
-            this.lista_zadan.AccessibleDescription = "Lista zadań";
-            this.lista_zadan.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.lista_zadan.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.lista_zadan.Enabled = false;
-            this.lista_zadan.FormattingEnabled = true;
-            this.lista_zadan.Location = new System.Drawing.Point(306, 12);
-            this.lista_zadan.Name = "lista_zadan";
-            this.lista_zadan.Size = new System.Drawing.Size(255, 134);
-            this.lista_zadan.TabIndex = 5;
-            this.lista_zadan.UseWaitCursor = true;
-            this.lista_zadan.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.button1.Click += new System.EventHandler(this.start_Click);
             // 
             // button2
             // 
@@ -126,7 +113,7 @@
             this.button4.Text = "Czyść";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.UseWaitCursor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.button4.Click += new System.EventHandler(this.wyczyscListe);
             // 
             // label1
             // 
@@ -165,12 +152,23 @@
             this.Adres_strony.Name = "Adres_strony";
             this.Adres_strony.Size = new System.Drawing.Size(100, 20);
             this.Adres_strony.TabIndex = 12;
+            this.Adres_strony.UseWaitCursor = true;
+            // 
+            // lista_zadan
+            // 
+            this.lista_zadan.FormattingEnabled = true;
+            this.lista_zadan.Location = new System.Drawing.Point(342, 22);
+            this.lista_zadan.Name = "lista_zadan";
+            this.lista_zadan.Size = new System.Drawing.Size(201, 108);
+            this.lista_zadan.TabIndex = 13;
+            this.lista_zadan.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged_1);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(634, 262);
+            this.Controls.Add(this.lista_zadan);
             this.Controls.Add(this.Adres_strony);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -178,7 +176,6 @@
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.lista_zadan);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.Email);
             this.Controls.Add(this.start);
@@ -197,7 +194,6 @@
         private System.Windows.Forms.Button start;
         private System.Windows.Forms.TextBox Email;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ListBox lista_zadan;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
@@ -205,6 +201,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox Adres_strony;
+        private System.Windows.Forms.ListBox lista_zadan;
     }
 }
 
